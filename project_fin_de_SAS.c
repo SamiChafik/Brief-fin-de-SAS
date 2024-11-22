@@ -3,23 +3,48 @@
 #include <string.h>
 
 typedef struct {
-    int day,month,year;
+    int hour,day,month;
 } date;
 typedef struct {
-    char title[100],discreptiona[400];
+    char title[100],discreption[400];
     int prio;
     date date;
 } task;
 
-void add() {
-    printf ("test 1\n");
+int count = 0;
+
+void add(task t[]) {
+    if (count >= 50) {
+        printf ("you reach the limit of tasks you can add.\n");
+        return; 
+    }
+    
+    printf ("=== Task %d ===\n", count+1);
+    printf ("title : ");
+    scanf (" %[^\n]", t[count].title);
+    printf ("discription : ");
+    scanf (" %[^\n]", t[count].discreption);
+    printf ("priority\n1-high\n2-low)\nchoose one : ");
+    scanf ("%d", &t[count].prio);
+    count++;
+    printf ("=== Task added ! ===\n");
 }
-void show() {
-    printf ("test 2\n");
+void show(task t[]) {
+    int i;
+    printf ("<= List of tasks =>\n");
+
+    for (i = 0; i < count; i++) {
+        printf ("=== Task %d ===\n", i+1);
+        printf ("Tilte : %s\n", t[i].title);
+        printf ("discription : %s\n", t[i].discreption);
+        printf ("prio : ");
+        if (t[i].prio == 1) {
+            printf ("high\n");
+        } else printf ("low\n");
+    }
+
 }
-void edit() {
-    printf ("test 3\n");
-}
+void edit(task t[]) {}
 void delete() {
     printf ("test 4\n");
 }
@@ -29,6 +54,7 @@ void sort() {
 
 int main() {
     int ch;
+    task t[50];
 
     do {
         printf ("=== Menu ===\n");
@@ -47,10 +73,10 @@ int main() {
             printf ("exiting program...");
             break;
             case 1 :
-            add();
+            add(t);
             break;
             case 2 :
-            show();
+            show(t);
             break;
             case 3 :
             edit();
