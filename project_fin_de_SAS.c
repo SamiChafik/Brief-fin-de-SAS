@@ -36,7 +36,7 @@ void show(task t[]) {
     for (i = 0; i < count; i++) {
         printf ("=== Task %d ===\n", i+1);
         printf ("Tilte : %s\n", t[i].title);
-        printf ("discription : %s\n", t[i].discreption);
+        printf ("description : %s\n", t[i].discreption);
         printf ("prio : ");
         if (t[i].prio == 1) {
             printf ("high\n");
@@ -44,7 +44,25 @@ void show(task t[]) {
     }
 
 }
-void edit(task t[]) {}
+void edit(task t[]) {
+    int num;
+    printf ("enter the task number you want to edit : ");
+    scanf ("%d", &num);
+
+    if (num < 0 || num > count) {
+        printf ("task does not exist !\n");
+        return;
+    }
+    num--;
+    printf ("=== Task %d ===\n", num+1);
+    printf ("New tilte : ");
+    scanf (" %[^\n]", t[num].title);
+    printf ("New description : ");
+    scanf (" %[^\n]", t[num].discreption);
+    printf ("Change priority (1-high or 2-low) : ");
+    scanf ("%d", &t[num].prio);
+    printf ("<= Task changed successfully ! =>\n");
+}
 void delete() {
     printf ("test 4\n");
 }
@@ -79,7 +97,7 @@ int main() {
             show(t);
             break;
             case 3 :
-            edit();
+            edit(t);
             break;
             case 4 :
             delete();
