@@ -6,7 +6,7 @@ typedef struct {
     int day,month,year;
 } date;
 typedef struct {
-    char title[100],discreption[400];
+    char title[100],description[400];
     int prio;
     int completion;
     date date;
@@ -16,8 +16,8 @@ int count = 0;
 
 void add(task t[]) {
     int ch;
-    if (count >= 50) {
-        printf ("\nyou reach the limit of tasks you can add.\n");
+    if (count >= 1) {
+        printf ("\nyou reached the limit of tasks you can add.\n");
         return; 
     }
 
@@ -30,8 +30,8 @@ void add(task t[]) {
                 printf ("\n=== Task %d ===\n", count+1);
                 printf ("title : ");
                 scanf (" %[^\n]", t[count].title);
-                printf ("discription : ");
-                scanf (" %[^\n]", t[count].discreption);
+                printf ("description : ");
+                scanf (" %[^\n]", t[count].description);
 
                 do {
                     printf ("priority\n1-high\n2-low\nchoose one : ");
@@ -93,12 +93,12 @@ void show(task t[]) {
             
             printf ("\n=== Task %d ===\n", i+1);
             printf ("Title : %s\n", t[i].title);
-            printf ("description : %s\n", t[i].discreption);
-            printf ("prio : ");
+            printf ("Description : %s\n", t[i].description);
+            printf ("Priority : ");
             if (t[i].prio == 1) {
-            printf ("high\n");
+            printf ("High\n");
             } else printf ("low\n");
-            printf ("the deadline date for this task is : %d / %d / %d \n", t[i].date.day, t[i].date.month, t[i].date.year);
+            printf ("The deadline date for this task is : %d / %d / %d \n", t[i].date.day, t[i].date.month, t[i].date.year);
 
             printf ("=========\n");
                 
@@ -110,7 +110,7 @@ void show(task t[]) {
             printf ("\nNo task with this priority was found !\n");
         }
 
-        if (ch == 6) {
+        if (ch == 4) {
             return;
         }
     }
@@ -120,7 +120,7 @@ void edit(task t[]) {
     int num,ch,ch2,ch3;
 
     if (count == 0) { 
-        printf ("\n<= no tasks stored ! =>\n");
+        printf ("\n<= No tasks stored ! =>\n");
         return;
     }
 
@@ -131,18 +131,19 @@ void edit(task t[]) {
 
             if (ch == 1) {
 
+                printf ("Enter the task number you want to edit (1 - %d) : ", count);
+                scanf ("%d", &num);
+
+                if (num < 0 || num > count) {
+                        printf ("\nTask does not exist !\n");
+                        break;
+                    }
+                
                 printf ("\n1-Edit all\n2-Edit title\n3-Edit discription\n4-Edit priority\n5-Edit date\n6-Return\n=> ");
                 scanf ("%d", &ch2);
                 switch (ch2) {
                     
                     case 1 :
-                    printf ("enter the task number you want to edit : ");
-                    scanf ("%d", &num);
-
-                    if (num < 0 || num > count) {
-                        printf ("\ntask does not exist !\n");
-                        return;
-                    }
 
                     num--;
 
@@ -150,10 +151,10 @@ void edit(task t[]) {
                     printf ("New tilte : ");
                     scanf (" %[^\n]", t[num].title);
                     printf ("New description : ");
-                    scanf (" %[^\n]", t[num].discreption);
+                    scanf (" %[^\n]", t[num].description);
 
                     do {
-                        printf ("priority\n1-high\n2-low\nchoose one : ");
+                        printf ("Priority\n1-high\n2-low\nchoose one : ");
                         scanf ("%d", &t[count].prio);
                     } while (t[count].prio != 1 && t[count].prio != 2);
 
@@ -163,7 +164,7 @@ void edit(task t[]) {
                         printf ("day (1-31) : ");
                         scanf ("%d", &t[num].date.day);
                         if (t[num].date.day < 1 || t[num].date.day > 31) {
-                            printf ("day most be between 1 and 31\n");
+                            printf ("The day most be between 1 and 31\n");
                         }
                     } while (t[num].date.day < 1 || t[num].date.day > 31);
 
@@ -171,7 +172,7 @@ void edit(task t[]) {
                         printf ("month (1-12) : ");
                         scanf ("%d", &t[num].date.month);
                         if (t[num].date.month < 1 || t[num].date.month > 12) {
-                            printf ("month most be between 1 and 12\n");
+                            printf ("The month most be between 1 and 12\n");
                         }
                     } while (t[num].date.month < 1 || t[num].date.month > 12);
 
@@ -180,7 +181,7 @@ void edit(task t[]) {
                         scanf ("%d", &t[num].date.year);
 
                         if (t[num].date.year < 2024) {
-                            printf ("the year most be 2024 or above\n");
+                            printf ("The year most be 2024 or above\n");
                         }
                     } while (t[num].date.year < 2024 );
 
@@ -188,13 +189,6 @@ void edit(task t[]) {
                     break;
 
                     case 2 :
-                    printf ("enter the task number you want to edit : ");
-                    scanf ("%d", &num);
-
-                    if (num < 0 || num > count) {
-                        printf ("\ntask does not exist !\n");
-                        return;
-                    }
 
                     num--;
 
@@ -204,30 +198,16 @@ void edit(task t[]) {
                     break;
 
                     case 3 :
-                    printf ("enter the task number you want to edit : ");
-                    scanf ("%d", &num);
-
-                    if (num < 0 || num > count) {
-                        printf ("\ntask does not exist !\n");
-                        return;
-                    }
-
+                    
                     num--;
 
                     printf ("\n=== Task %d ===\n", num+1);
                     printf ("New discription : ");
-                    scanf (" %[^\n]", t[num].discreption);
+                    scanf (" %[^\n]", t[num].description);
                     break;
 
                     case 4 :
-                    printf ("enter the task number you want to edit : ");
-                    scanf ("%d", &num);
-
-                    if (num < 0 || num > count) {
-                        printf ("\ntask does not exist !\n");
-                        return;
-                    }
-
+                    
                     num--;
 
                     printf ("\n=== Task %d ===\n", num+1);
@@ -243,34 +223,22 @@ void edit(task t[]) {
                     switch (ch3) {
 
                         case 1 :
-                        printf ("enter the task number you want to edit : ");
-                        scanf ("%d", &num);
-
-                        if (num < 0 || num > count) {
-                            printf ("\ntask does not exist !\n");
-                            return;
-                        }
-
+                        
                         num--;
 
                         printf ("\n=== Task %d ===\n", num+1);
+
                         do {
                         printf ("day (1-31) : ");
                         scanf ("%d", &t[num].date.day);
-                        if (t[num].date.day < 1 || t[num].date.day > 31) {
-                            printf ("day most be between 1 and 31\n");
-                        }
+
+                            if (t[num].date.day < 1 || t[num].date.day > 31) {
+                                printf ("day most be between 1 and 31\n");
+                            }
                         } while (t[num].date.day < 1 || t[num].date.day > 31);
                         break;
 
-                        case 2 :
-                        printf ("enter the task number you want to edit : ");
-                        scanf ("%d", &num);
-
-                        if (num < 0 || num > count) {
-                            printf ("\ntask does not exist !\n");
-                            return;
-                        }
+                        case 2 :                      
 
                         num--;
 
@@ -285,14 +253,7 @@ void edit(task t[]) {
                         break;
 
                         case 3 :
-                        printf ("enter the task number you want to edit : ");
-                        scanf ("%d", &num);
-
-                        if (num < 0 || num > count) {
-                            printf ("\ntask does not exist !\n");
-                            return;
-                        }
-
+                        
                         num--;
 
                         printf ("\n=== Task %d ===\n", num+1);
@@ -360,7 +321,7 @@ void delete(task t[]) {
 }
 
 void sort() {
-    printf ("work in progress\n");
+    printf ("work in progress...\n");
 }
 
 int main() {
@@ -374,25 +335,19 @@ int main() {
         scanf ("%d", &ch);
 
         switch (ch) {
-            case 0 :
-            printf ("exiting program...");
+            case 0 : printf ("exiting program...");
             break;
-            case 1 :
-            add(t);
+            case 1 : add(t);           
             break;
-            case 2 :
-            show(t);
+            case 2 : show(t);
             break;
-            case 3 :
-            edit(t);
+            case 3 : edit(t);          
             break;
-            case 4 :
-            delete(t);
+            case 4 : delete(t);          
             break;
-            case 5 :
-            sort();
+            case 5 : sort();           
             break;
-            default : printf ("invalid choice, try again.\n");
+            default : printf ("\ninvalid choice, try again.\n");
         }
     } while (ch != 0);
 }
