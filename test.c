@@ -16,8 +16,8 @@ int count = 0;
 
 void add(task t[]) {
     int ch;
-    if (count >= 1) {
-        printf ("\nyou reached the limit of tasks you can add.\n");
+    if (count >= 50) {
+        printf ("\nyou reach the limit of tasks you can add.\n");
         return; 
     }
 
@@ -82,10 +82,6 @@ void show(task t[]) {
         return;
     }
 
-    if (count == 1) {
-        printf ("\nThere is one task\n");
-    } else printf ("\nThere are %d tasks\n", count);
-    
     while (1) {
         printf ("\n1-Show all tasks\n2-Show high priority tasks\n3-Show low priority tasks\n4-Return to main menu\n=> ");
         scanf ("%d", &ch);
@@ -298,7 +294,7 @@ void delete(task t[]) {
             scanf ("%d", &ch);
 
             if (ch == 1) {
-                printf ("\nEntre the task number you want to delete : ");
+                printf ("\nentre the task number you want to delete : ");
                 scanf ("%d", &num);
                 
                 if (num > count) {
@@ -316,7 +312,7 @@ void delete(task t[]) {
                 count--;
             } else if (ch == 2) {
                 count = 0;
-                printf ("\n<= All tasks deleted succefully ! =>\n");
+                printf ("\n<= all tasks deleted succefully ! =>\n");
             } else if (ch == 3) {
                 return;
             } else printf ("\ninvalid choice, try again !\n");
