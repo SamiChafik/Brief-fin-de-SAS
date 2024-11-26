@@ -298,7 +298,7 @@ void delete(task t[]) {
             scanf ("%d", &ch);
 
             if (ch == 1) {
-                printf ("\nEntre the task number you want to delete : ");
+                printf ("\nEntre the task number you want to delete (1 - %d) : ", count);
                 scanf ("%d", &num);
                 
                 if (num > count) {
