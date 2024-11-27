@@ -13,15 +13,15 @@ typedef struct {
 } task;
 
 int count = 0;
-
+//the adding function
 void add(task t[]) {
-    int ch;
-    if (count >= 1) {
+    int ch;//user choice
+    if (count >= 50) {//if the user reached the tasks limit
         printf ("\nyou reached the limit of tasks you can add.\n");
         return; 
     }
 
-    while (1) {
+    while (1) {//infinite loop exits when user write 2(Return)
         do {
             printf ("\n1-Creat new task\n2-Return to main menu\n=> ");
             scanf ("%d", &ch);
@@ -33,13 +33,13 @@ void add(task t[]) {
                 printf ("description : ");
                 scanf (" %[^\n]", t[count].description);
 
-                do {
+                do {//loop exits only when the user enters one of the two choices
                     printf ("priority\n1-high\n2-low\nchoose one : ");
                     scanf ("%d", &t[count].prio);
                 } while (t[count].prio != 1 && t[count].prio != 2);
 
                 printf ("Enter the deadline date\n");
-                do {
+                do {//loop exits only when the user enters the right day
                     printf ("day (1-31) : ");
                     scanf ("%d", &t[count].date.day);
                     if (t[count].date.day < 1 || t[count].date.day > 31) {
@@ -47,7 +47,7 @@ void add(task t[]) {
                     }
                 } while (t[count].date.day < 1 || t[count].date.day > 31);
 
-                do {
+                do {//loop exits only when the user enters the right month
                     printf ("month (1-12) : ");
                     scanf ("%d", &t[count].date.month);
                     if (t[count].date.month < 1 || t[count].date.month > 12) {
@@ -55,7 +55,7 @@ void add(task t[]) {
                     }
                 } while (t[count].date.month < 1 || t[count].date.month > 12);
 
-                do {
+                do {//loop exits only when the user enters 2024 or above
                     printf ("year (2024 or above) : ");
                     scanf ("%d", &t[count].date.year);
                     if (t[count].date.year < 2024) {
@@ -63,36 +63,36 @@ void add(task t[]) {
                     }
                 } while (t[count].date.year < 2024 );
 
-                count++;
+                count++;//adds to the array of task to store in the next task 
 
                 printf ("=== Task added ! ===\n");
             } else if (ch == 2) {
-                return;
+                return;//returns to int main()
             } else printf ("\ninvalid choice, try again !\n");
         } while (ch < 1 || ch > 2);
     }
 }
-
+//prints the tasks stored
 void show(task t[]) {
     int i,ch;
     int d = 0;
 
-    if (count == 0) { 
+    if (count == 0) { //check if we have stored tasks
         printf ("\n<= no tasks stored ! =>\n");
-        return;
+        return;//if not it exits to main menu
     }
 
-    if (count == 1) {
+    if (count == 1) {//shows the user how many tasks he stored
         printf ("\nThere is one task\n");
     } else printf ("\nThere are %d tasks\n", count);
     
-    while (1) {
+    while (1) {//infinite loop exits when ch == 4 (return)
         printf ("\n1-Show all tasks\n2-Show high priority tasks\n3-Show low priority tasks\n4-Return to main menu\n=> ");
         scanf ("%d", &ch);
 
         for (i = 0; i < count; i++) {
-            if ((ch == 2 && t[i].prio != 1 ) || (ch == 3 && t[i].prio != 2)) {
-                continue;
+            if ((ch == 2 && t[i].prio != 1 ) || (ch == 3 && t[i].prio != 2)) {//if the input doesnt meet the conditions it doesnt execute the code
+                continue;//skips the code below but stays in the loop
             }
             
             printf ("\n=== Task %d ===\n", i+1);
@@ -106,7 +106,7 @@ void show(task t[]) {
 
             printf ("=========\n");
                 
-            d = 1;
+            d = 1;//changes the value of d so the code knows there is at least one task with the priority entered by the user
             
         }
 
@@ -121,14 +121,14 @@ void show(task t[]) {
 }
 
 void edit(task t[]) {
-    int num,ch,ch2,ch3;
+    int num,ch,ch2,ch3;//3 declared choices since there are 3 menus in this function
 
     if (count == 0) { 
         printf ("\n<= No tasks stored ! =>\n");
         return;
     }
 
-    while (1) {
+    while (1) {//infinite loop
         do {
             printf ("\n1-Edit existing task\n2-Return to main menu\n=> ");
             scanf ("%d", &ch);
@@ -138,18 +138,18 @@ void edit(task t[]) {
                 printf ("Enter the task number you want to edit (1 - %d) : ", count);
                 scanf ("%d", &num);
 
-                if (num < 0 || num > count) {
+                if (num < 0 || num > count) {//checks if there is a task stored
                         printf ("\nTask does not exist !\n");
                         break;
                     }
                 
-                printf ("\n1-Edit all\n2-Edit title\n3-Edit discription\n4-Edit priority\n5-Edit date\n6-Return\n=> ");
+                printf ("\n1-Edit all\n2-Edit title\n3-Edit description\n4-Edit priority\n5-Edit date\n6-Return\n=> ");
                 scanf ("%d", &ch2);
                 switch (ch2) {
                     
-                    case 1 :
+                    case 1 ://same code in the add function
 
-                    num--;
+                    num--;//-1 from the number the user entered since the array starts with 0
 
                     printf ("\n=== Task %d ===\n", num+1);
                     printf ("New tilte : ");
@@ -159,8 +159,8 @@ void edit(task t[]) {
 
                     do {
                         printf ("Priority\n1-high\n2-low\nchoose one : ");
-                        scanf ("%d", &t[count].prio);
-                    } while (t[count].prio != 1 && t[count].prio != 2);
+                        scanf ("%d", &t[num].prio);
+                    } while (t[num].prio != 1 && t[num].prio != 2);
 
                     printf ("Enter new deadline date\n");
 
@@ -190,7 +190,7 @@ void edit(task t[]) {
                     } while (t[num].date.year < 2024 );
 
                     printf ("\n<= Task changed successfully ! =>\n");
-                    break;
+                    break;//exits the loop
 
                     case 2 :
 
@@ -285,7 +285,7 @@ void edit(task t[]) {
 }
 
 void delete(task t[]) {
-    int ch,i,num;
+    int ch,ch2,i,num;
     
     if (count == 0) { 
         printf ("\n<= no tasks stored ! =>\n");
@@ -305,18 +305,22 @@ void delete(task t[]) {
                 printf ("\nthis task does not exist !\n");
                 continue;
                 }
-                num--;
+                printf ("do you confirm : \n1-yes\n2-no");
+                scanf ("%d", &ch2);
+                if (ch2 == 1) {
+                    num--;
 
-                for (i=num; i < count; i++) {
-                    t[i] = t[i+1];
-                }
+                    for (i=num; i < count; i++) {
+                        t[i] = t[i+1];//replace the previous array with the next array
+                    }
 
-                printf ("\n<= task deleted successfuly ! =>\n");
+                    printf ("\n<= task deleted successfuly ! =>\n");
 
-                count--;
+                    count--;
+                } else break;
             } else if (ch == 2) {
-                count = 0;
-                printf ("\n<= All tasks deleted succefully ! =>\n");
+                count = 0;//resets the array to 0
+                printf ("\n<= All tasks deleted successfully ! =>\n");
             } else if (ch == 3) {
                 return;
             } else printf ("\ninvalid choice, try again !\n");
@@ -330,9 +334,9 @@ void sort() {
 
 int main() {
     int ch;
-    task t[50];
+    task t[50];//size of my struct
 
-    do {
+    do {//the main menu
         printf ("\n=== Menu ===\n1-Add a new task\n2-Show tasks\n3-Edit a task\n4-Delete a task\n5-Sort tasks\n0-Exit\n");
 
         printf (" ==> entre your choice : ");
